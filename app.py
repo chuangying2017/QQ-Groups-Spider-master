@@ -32,7 +32,8 @@ class QQGroups(object):
     def newSession(self):
         self.sess = requests.Session()
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.59 QQ/8.9.3.21169 Safari/537.36'
+            # 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36'
+            'User-Agent': 'Mozilla/5.0 (Windows NT 5.1)  AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 QQ/8.9.3.21169 Safari/537.36'
         }
         self.sess.headers.update(headers)
         return
@@ -99,7 +100,7 @@ class QQGroups(object):
             }
             try:
                 resp = self.sess.get(url, params=params, timeout=1000)
-                result = resp.content
+                result = resp.content.decode(encoding='utf-8')
                 if '二维码未失效' in result:
                     status = 0
                 elif '二维码认证中' in result:
